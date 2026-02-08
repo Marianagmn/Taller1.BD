@@ -1,13 +1,13 @@
 package vista;
 
-import controlador.EstrategiaControlador;
 import controlador.ArticuloControlador;
-import modelo.EstrategiaInversion;
-import modelo.Articulo;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import controlador.EstrategiaControlador;
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import modelo.Articulo;
+import modelo.EstrategiaInversion;
 
 /**
  * VISTA: PanelEstrategias
@@ -34,7 +34,7 @@ public class PanelEstrategias extends JPanel {
         
         // Panel superior con título
         JPanel panelTitulo = new JPanel();
-        JLabel lblTitulo = new JLabel("💰 Gestión de Estrategias de Inversión (CRUD)");
+        JLabel lblTitulo = new JLabel("Gestión de Estrategias de Inversión (CRUD)");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
         lblTitulo.setForeground(new Color(231, 76, 60));
         panelTitulo.add(lblTitulo);
@@ -71,10 +71,10 @@ public class PanelEstrategias extends JPanel {
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         panelBotones.setBackground(new Color(236, 240, 241));
         
-        btnCrear = crearBoton("➕ CREAR", new Color(46, 204, 113));
-        btnVer = crearBoton("👁 VER", new Color(52, 152, 219));
-        btnEditar = crearBoton("✏ EDITAR", new Color(243, 156, 18));
-        btnEliminar = crearBoton("🗑 ELIMINAR", new Color(231, 76, 60));
+        btnCrear = crearBoton("CREAR", new Color(46, 204, 113));
+        btnVer = crearBoton("VER", new Color(52, 152, 219));
+        btnEditar = crearBoton("EDITAR", new Color(243, 156, 18));
+        btnEliminar = crearBoton("ELIMINAR", new Color(231, 76, 60));
         
         btnCrear.addActionListener(e -> mostrarDialogoCrear());
         btnVer.addActionListener(e -> verDetallesEstrategia());
@@ -86,7 +86,7 @@ public class PanelEstrategias extends JPanel {
         panelBotones.add(btnEditar);
         panelBotones.add(btnEliminar);
         
-        JButton btnRefrescar = crearBoton("🔄 Refrescar", new Color(149, 165, 166));
+        JButton btnRefrescar = crearBoton("Refrescar", new Color(149, 165, 166));
         btnRefrescar.addActionListener(e -> cargarEstrategias());
         panelBotones.add(btnRefrescar);
         
@@ -129,7 +129,7 @@ public class PanelEstrategias extends JPanel {
         
         JPanel panel = crearPanelFormulario(null);
         
-        JButton btnGuardar = new JButton("💾 Guardar");
+        JButton btnGuardar = new JButton("Guardar");
         btnGuardar.setFont(new Font("Arial", Font.BOLD, 12));
         btnGuardar.setBackground(new Color(46, 204, 113));
         btnGuardar.setForeground(Color.WHITE);
@@ -241,7 +241,7 @@ public class PanelEstrategias extends JPanel {
         
         JPanel panel = crearPanelFormulario(estrategia);
         
-        JButton btnGuardar = new JButton("💾 Actualizar");
+        JButton btnGuardar = new JButton("Actualizar");
         btnGuardar.setFont(new Font("Arial", Font.BOLD, 12));
         btnGuardar.setBackground(new Color(243, 156, 18));
         btnGuardar.setForeground(Color.WHITE);

@@ -1,7 +1,7 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 /**
  * VISTA: VentanaPrincipal
@@ -69,10 +69,10 @@ public class VentanaPrincipal extends JFrame {
         panelEstrategias = new PanelEstrategias();
         
         // Agregar pestañas
-        pestanas.addTab("🏠 Inicio", crearPanelInicio());
-        pestanas.addTab("🔍 Búsquedas", panelBusquedas);
-        pestanas.addTab("📚 Artículos", panelArticulos);
-        pestanas.addTab("💰 Estrategias (CRUD)", panelEstrategias);
+        pestanas.addTab("Inicio", crearPanelInicio());
+        pestanas.addTab("Búsquedas", panelBusquedas);
+        pestanas.addTab("Artículos", panelArticulos);
+        pestanas.addTab("Estrategias (CRUD)", panelEstrategias);
         
         add(pestanas, BorderLayout.CENTER);
         

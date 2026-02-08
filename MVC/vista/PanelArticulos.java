@@ -1,11 +1,11 @@
 package vista;
 
 import controlador.ArticuloControlador;
-import modelo.Articulo;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import modelo.Articulo;
 
 /**
  * VISTA: PanelArticulos
@@ -39,12 +39,12 @@ public class PanelArticulos extends JPanel {
         txtBuscar = new JTextField(30);
         panelBusqueda.add(txtBuscar);
         
-        JButton btnBuscar = new JButton("🔍 Buscar");
+        JButton btnBuscar = new JButton("Buscar");
         btnBuscar.setFont(new Font("Arial", Font.BOLD, 11));
         btnBuscar.addActionListener(e -> buscarArticulos());
         panelBusqueda.add(btnBuscar);
         
-        JButton btnMostrarTodos = new JButton("📋 Mostrar Todos");
+        JButton btnMostrarTodos = new JButton("Mostrar Todos");
         btnMostrarTodos.setFont(new Font("Arial", Font.BOLD, 11));
         btnMostrarTodos.addActionListener(e -> cargarArticulos());
         panelBusqueda.add(btnMostrarTodos);

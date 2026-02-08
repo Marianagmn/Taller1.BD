@@ -1,11 +1,11 @@
 package vista;
 
 import controlador.BusquedaControlador;
-import modelo.Busqueda;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import modelo.Busqueda;
 
 /**
  * VISTA: PanelBusquedas
@@ -89,7 +89,7 @@ public class PanelBusquedas extends JPanel {
         
         // Panel inferior con botón refrescar
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton btnRefrescar = new JButton("🔄 Refrescar");
+        JButton btnRefrescar = new JButton("Refrescar");
         btnRefrescar.setFont(new Font("Arial", Font.BOLD, 12));
         btnRefrescar.addActionListener(e -> cargarBusquedas());
         panelInferior.add(btnRefrescar);
