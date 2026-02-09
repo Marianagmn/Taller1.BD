@@ -1,21 +1,16 @@
 package controlador;
 
-import modelo.Articulo;
-import modelo.ConexionDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Articulo;
+import modelo.ConexionDB;
 
-/**
- * CONTROLADOR: ArticuloControlador
- * Maneja la lógica de negocio para los artículos científicos
- */
+// Esta clase controla todas las operaciones con artículos en la base de datos
+// Maneja búsquedas, obtención de datos y conteo de artículos
 public class ArticuloControlador {
-    
-    /**
-     * Obtiene todos los artículos de la base de datos
-     * @return Lista de artículos
-     */
+
+    // Método para obtener todos los artículos ordenados por año de publicación (más recientes primero)
     public List<Articulo> obtenerTodosLosArticulos() {
         List<Articulo> articulos = new ArrayList<>();
         String sql = "SELECT * FROM articulos ORDER BY anio_publicacion DESC, id";
@@ -24,6 +19,7 @@ public class ArticuloControlador {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             
+            // Recorremos cada fila de resultados y la convertimos en un objeto Articulo
             while (rs.next()) {
                 articulos.add(mapearArticulo(rs));
             }
@@ -36,11 +32,8 @@ public class ArticuloControlador {
         return articulos;
     }
     
-    /**
-     * Obtiene un artículo por su ID
-     * @param id ID del artículo
-     * @return Objeto Articulo o null si no existe
-     */
+
+    // Método para buscar un artículo específico por su identificador (ID)
     public Articulo obtenerArticuloPorId(int id) {
         String sql = "SELECT * FROM articulos WHERE id = ?";
         Articulo articulo = null;
@@ -48,9 +41,11 @@ public class ArticuloControlador {
         try (Connection conn = ConexionDB.getConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
+            // Establecemos el ID que queremos buscar
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             
+            // Si existe el artículo, lo mapeamos
             if (rs.next()) {
                 articulo = mapearArticulo(rs);
             }
@@ -62,11 +57,7 @@ public class ArticuloControlador {
         return articulo;
     }
     
-    /**
-     * Obtiene artículos por búsqueda
-     * @param busquedaId ID de la búsqueda
-     * @return Lista de artículos
-     */
+    // Método para obtener todos los artículos que pertenecen a una búsqueda específica
     public List<Articulo> obtenerArticulosPorBusqueda(int busquedaId) {
         List<Articulo> articulos = new ArrayList<>();
         String sql = "SELECT * FROM articulos WHERE busqueda_id = ? ORDER BY id";
@@ -88,11 +79,9 @@ public class ArticuloControlador {
         return articulos;
     }
     
-    /**
-     * Busca artículos por palabra clave en título, autores o palabras clave
-     * @param palabraClave Término de búsqueda
-     * @return Lista de artículos encontrados
-     */
+
+    // Método para buscar artículos por palabra clave
+    // Busca en el título, autores y palabras clave de los artículos
     public List<Articulo> buscarArticulos(String palabraClave) {
         List<Articulo> articulos = new ArrayList<>();
         String sql = "SELECT * FROM articulos WHERE " +
@@ -102,6 +91,7 @@ public class ArticuloControlador {
         try (Connection conn = ConexionDB.getConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
+            // Agregamos % para buscar coincidencias parciales (cualquier parte de la palabra)
             String patron = "%" + palabraClave + "%";
             pstmt.setString(1, patron);
             pstmt.setString(2, patron);
@@ -120,10 +110,7 @@ public class ArticuloControlador {
         return articulos;
     }
     
-    /**
-     * Obtiene el conteo total de artículos
-     * @return Número total de artículos
-     */
+    // Método para contar el total de artículos almacenados en la base de datos
     public int contarArticulos() {
         String sql = "SELECT COUNT(*) as total FROM articulos";
         int total = 0;
@@ -143,12 +130,8 @@ public class ArticuloControlador {
         return total;
     }
     
-    /**
-     * Método auxiliar para mapear ResultSet a objeto Articulo
-     * @param rs ResultSet con datos del artículo
-     * @return Objeto Articulo
-     * @throws SQLException si hay error al leer datos
-     */
+    // Método privado auxiliar que convierte una fila de la base de datos en un objeto Articulo
+    // Este método rellena todos los atributos del artículo con los datos de la base de datos
     private Articulo mapearArticulo(ResultSet rs) throws SQLException {
         Articulo articulo = new Articulo();
         articulo.setId(rs.getInt("id"));

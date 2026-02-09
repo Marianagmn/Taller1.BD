@@ -7,10 +7,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import modelo.Articulo;
 
-/**
- * VISTA: PanelArticulos
- * Panel para visualizar información completa de artículos científicos
- */
+
+// Panel para mostrar y buscar artículos científicos
+// Se comunica con `ArticuloControlador` para obtener y buscar registros
 public class PanelArticulos extends JPanel {
     
     private ArticuloControlador controlador;
@@ -20,17 +19,18 @@ public class PanelArticulos extends JPanel {
     private JTextField txtBuscar;
     private JLabel lblTotal;
     
+    // Constructor: inicializa el controlador, la interfaz y carga los artículos
     public PanelArticulos() {
         controlador = new ArticuloControlador();
         inicializarComponentes();
         cargarArticulos();
     }
     
+    // Crea y configura los componentes gráficos (buscador, tabla, detalles)
     private void inicializarComponentes() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        // Panel superior con búsqueda y estadísticas
         JPanel panelSuperior = new JPanel(new BorderLayout(10, 10));
         
         JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -57,7 +57,6 @@ public class PanelArticulos extends JPanel {
         
         add(panelSuperior, BorderLayout.NORTH);
         
-        // Tabla de artículos
         String[] columnas = {"ID", "Título", "Autores", "Año"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
@@ -74,13 +73,11 @@ public class PanelArticulos extends JPanel {
         tablaArticulos.getTableHeader().setForeground(Color.BLACK);
         tablaArticulos.getTableHeader().setReorderingAllowed(false);
         
-        // Ajustar anchos de columnas
         tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaArticulos.getColumnModel().getColumn(1).setPreferredWidth(400);
         tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(250);
         tablaArticulos.getColumnModel().getColumn(3).setPreferredWidth(60);
         
-        // Listener para mostrar detalles
         tablaArticulos.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 mostrarDetallesArticulo();
@@ -90,7 +87,6 @@ public class PanelArticulos extends JPanel {
         JScrollPane scrollTabla = new JScrollPane(tablaArticulos);
         scrollTabla.setBorder(BorderFactory.createTitledBorder("Artículos Científicos"));
         
-        // Panel de detalles
         JPanel panelDetalles = new JPanel(new BorderLayout());
         panelDetalles.setBorder(BorderFactory.createTitledBorder("Información Completa del Artículo"));
         
@@ -104,7 +100,6 @@ public class PanelArticulos extends JPanel {
         JScrollPane scrollDetalles = new JScrollPane(txtDetalles);
         panelDetalles.add(scrollDetalles, BorderLayout.CENTER);
         
-        // Split pane
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollTabla, panelDetalles);
         splitPane.setDividerLocation(300);
         splitPane.setResizeWeight(0.45);
@@ -112,6 +107,7 @@ public class PanelArticulos extends JPanel {
         add(splitPane, BorderLayout.CENTER);
     }
     
+    // Carga los artículos desde el controlador y los muestra en la tabla
     private void cargarArticulos() {
         modeloTabla.setRowCount(0);
         List<Articulo> articulos = controlador.obtenerTodosLosArticulos();
@@ -130,6 +126,7 @@ public class PanelArticulos extends JPanel {
         txtBuscar.setText("");
     }
     
+    // Realiza una búsqueda por palabra clave y actualiza la tabla con los resultados
     private void buscarArticulos() {
         String termino = txtBuscar.getText().trim();
         
@@ -164,6 +161,7 @@ public class PanelArticulos extends JPanel {
         }
     }
     
+    // Muestra la información bibliográfica completa del artículo seleccionado
     private void mostrarDetallesArticulo() {
         int filaSeleccionada = tablaArticulos.getSelectedRow();
         
