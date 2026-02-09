@@ -77,8 +77,3 @@ Nota: si usas Linux/macOS, reemplaza `;` por `:` en el classpath.
 - Preferible ejecutar desde el IDE para evitar problemas con classpath y dependencias.
 - Los comentarios en el código están en español y pensados para estudiantes; revisa las clases `MVC/Controlador` y `MVC/Modelo` para entender las operaciones.
 
-**Autores / Créditos**
-Proyecto desarrollado como ejemplo académico.
-
----
-Archivo actualizado automáticamente para facilitar el uso y la comprensión del proyecto.
