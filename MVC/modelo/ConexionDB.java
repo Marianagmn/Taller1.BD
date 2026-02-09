@@ -30,6 +30,6 @@ public class ConexionDB {
     }
 
     public static void main(String[] args) throws Exception {
-        getConexion(); // aquí solo llamas una vez
+        getConexion(); 
     }
 }
