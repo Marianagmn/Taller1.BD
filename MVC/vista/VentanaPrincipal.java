@@ -3,10 +3,9 @@ package vista;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- * VISTA: VentanaPrincipal
- * Interfaz principal del sistema con pestañas para cada módulo
- */
+
+// Clase de la ventana principal de la aplicación (Vista)
+// Contiene la estructura principal: título, pestañas y pie de página
 public class VentanaPrincipal extends JFrame {
     
     private JTabbedPane pestanas;
@@ -14,18 +13,19 @@ public class VentanaPrincipal extends JFrame {
     private PanelArticulos panelArticulos;
     private PanelEstrategias panelEstrategias;
     
+    // Constructor: configura la ventana y agrega los componentes visuales
     public VentanaPrincipal() {
         configurarVentana();
         inicializarComponentes();
     }
     
+    // Configura propiedades generales de la ventana (título, tamaño, LAF)
     private void configurarVentana() {
         setTitle("Sistema de Gestión de Artículos Fintech - MVC");
         setSize(1200, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        // Icono y look and feel
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -33,8 +33,8 @@ public class VentanaPrincipal extends JFrame {
         }
     }
     
+    // Crea e inicializa los componentes gráficos (panel título, pestañas, footer)
     private void inicializarComponentes() {
-        // Panel superior con título
         JPanel panelTitulo = new JPanel();
         panelTitulo.setBackground(new Color(41, 128, 185));
         panelTitulo.setPreferredSize(new Dimension(0, 80));
@@ -59,24 +59,20 @@ public class VentanaPrincipal extends JFrame {
         
         add(panelTitulo, BorderLayout.NORTH);
         
-        // Pestañas
         pestanas = new JTabbedPane();
         pestanas.setFont(new Font("Arial", Font.PLAIN, 14));
         
-        // Inicializar paneles
         panelBusquedas = new PanelBusquedas();
         panelArticulos = new PanelArticulos();
         panelEstrategias = new PanelEstrategias();
         
-        // Agregar pestañas
         pestanas.addTab("Inicio", crearPanelInicio());
         pestanas.addTab("Búsquedas", panelBusquedas);
         pestanas.addTab("Artículos", panelArticulos);
         pestanas.addTab("Estrategias (CRUD)", panelEstrategias);
         
         add(pestanas, BorderLayout.CENTER);
-        
-        // Panel inferior
+
         JPanel panelInferior = new JPanel();
         panelInferior.setBackground(new Color(52, 73, 94));
         panelInferior.setPreferredSize(new Dimension(0, 30));
@@ -89,11 +85,11 @@ public class VentanaPrincipal extends JFrame {
         add(panelInferior, BorderLayout.SOUTH);
     }
     
+    // Crea el panel de inicio con descripción y tarjetas de los estudiantes
     private JPanel crearPanelInicio() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        
-        // Panel de bienvenida
+
         JPanel panelBienvenida = new JPanel();
         panelBienvenida.setLayout(new BoxLayout(panelBienvenida, BoxLayout.Y_AXIS));
         panelBienvenida.setBorder(BorderFactory.createCompoundBorder(
@@ -128,8 +124,7 @@ public class VentanaPrincipal extends JFrame {
         panelBienvenida.add(txtDescripcion);
         
         panel.add(panelBienvenida, BorderLayout.CENTER);
-        
-        // Panel de información de estudiantes
+
         JPanel panelEstudiantes = new JPanel(new GridLayout(1, 3, 10, 10));
         
         String[] estudiantes = {
@@ -160,6 +155,8 @@ public class VentanaPrincipal extends JFrame {
         return panel;
     }
     
+    // Crea una tarjeta (card) con los datos de un estudiante y su búsqueda
+    // Parámetros: nombre, cadena de búsqueda y cantidad de documentos
     private JPanel crearCardEstudiante(String nombre, String busqueda, int cantidad) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));

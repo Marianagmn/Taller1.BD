@@ -1,26 +1,26 @@
 package modelo;
 
-/**
- * MODELO: Clase Articulo
- * Representa un artículo científico con toda su información bibliográfica
- */
+// Esta clase representa un artículo científico almacenado en la base de datos.
+// Contiene información como título, autores, año de publicación, resumen, etc.
 public class Articulo {
     
-    private int id;
-    private int busquedaId;
-    private String titulo;
-    private String autores;
-    private int anioPublicacion;
-    private String fuente;
-    private String doi;
-    private String resumen;
-    private String palabrasClave;
-    private String citaAPA;
-    
-    // Constructores
+    // Propiedades (atributos) del artículo
+    private int id;                      // Identificador único del artículo
+    private int busquedaId;              // ID de la búsqueda a la que pertenece
+    private String titulo;               // Título del artículo
+    private String autores;              // Autores del artículo
+    private int anioPublicacion;         // Año en que se publicó
+    private String fuente;               // Revista o fuente de publicación
+    private String doi;                  // Identificador digital (DOI)
+    private String resumen;              // Resumen del contenido
+    private String palabrasClave;        // Palabras clave del artículo
+    private String citaAPA;              // Cita en formato APA
+
+    // Constructor vacío - para un artículo sin datos iniciales
     public Articulo() {
     }
     
+    // Constructor completo - se usa cuando tenemos todos los datos del artículo
     public Articulo(int id, int busquedaId, String titulo, String autores, 
                    int anioPublicacion, String fuente, String doi, 
                    String resumen, String palabrasClave, String citaAPA) {
@@ -36,9 +36,10 @@ public class Articulo {
         this.citaAPA = citaAPA;
     }
     
-    // Getters y Setters
+    // GETTERS Y SETTERS
+    
     public int getId() {
-        return id;
+        return id;  // Devuelve el identificador del artículo
     }
     
     public void setId(int id) {
@@ -117,6 +118,7 @@ public class Articulo {
         this.citaAPA = citaAPA;
     }
     
+    // Método toString - convierte el artículo a texto para mostrarlo en la interfaz
     @Override
     public String toString() {
         return titulo + " (" + anioPublicacion + ")";

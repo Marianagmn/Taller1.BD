@@ -7,10 +7,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import modelo.Busqueda;
 
-/**
- * VISTA: PanelBusquedas
- * Panel para visualizar información de búsquedas científicas
- */
+// Panel que muestra las búsquedas realizadas y sus detalles
+// Usa `BusquedaControlador` para obtener datos desde el modelo/BD
 public class PanelBusquedas extends JPanel {
     
     private BusquedaControlador controlador;
@@ -19,17 +17,19 @@ public class PanelBusquedas extends JPanel {
     private JTextArea txtDetalles;
     private JLabel lblEstadisticas;
     
+    // Constructor: crea el controlador, inicializa la UI y carga datos
     public PanelBusquedas() {
         controlador = new BusquedaControlador();
         inicializarComponentes();
         cargarBusquedas();
     }
     
+    // Crea y configura todos los componentes visuales del panel
     private void inicializarComponentes() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        // Panel superior con estadísticas
+
         JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelSuperior.setBackground(new Color(236, 240, 241));
         panelSuperior.setBorder(BorderFactory.createTitledBorder("Estadísticas"));
@@ -40,7 +40,7 @@ public class PanelBusquedas extends JPanel {
         
         add(panelSuperior, BorderLayout.NORTH);
         
-        // Tabla de búsquedas
+
         String[] columnas = {"ID", "Estudiante", "Base de Datos", "Documentos Encontrados"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
@@ -55,8 +55,7 @@ public class PanelBusquedas extends JPanel {
         tablaBusquedas.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
         tablaBusquedas.getTableHeader().setBackground(new Color(41, 128, 185));
         tablaBusquedas.getTableHeader().setForeground(Color.WHITE);
-        
-        // Listener para mostrar detalles
+
         tablaBusquedas.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 mostrarDetallesBusqueda();
@@ -66,7 +65,6 @@ public class PanelBusquedas extends JPanel {
         JScrollPane scrollTabla = new JScrollPane(tablaBusquedas);
         scrollTabla.setBorder(BorderFactory.createTitledBorder("Búsquedas Realizadas"));
         
-        // Panel de detalles
         JPanel panelDetalles = new JPanel(new BorderLayout());
         panelDetalles.setBorder(BorderFactory.createTitledBorder("Detalles de la Búsqueda"));
         
@@ -80,14 +78,12 @@ public class PanelBusquedas extends JPanel {
         JScrollPane scrollDetalles = new JScrollPane(txtDetalles);
         panelDetalles.add(scrollDetalles, BorderLayout.CENTER);
         
-        // Split pane
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollTabla, panelDetalles);
         splitPane.setDividerLocation(250);
         splitPane.setResizeWeight(0.5);
         
         add(splitPane, BorderLayout.CENTER);
         
-        // Panel inferior con botón refrescar
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btnRefrescar = new JButton("Refrescar");
         btnRefrescar.setFont(new Font("Arial", Font.BOLD, 12));
@@ -97,6 +93,7 @@ public class PanelBusquedas extends JPanel {
         add(panelInferior, BorderLayout.SOUTH);
     }
     
+    // Carga las búsquedas desde el controlador y las muestra en la tabla
     private void cargarBusquedas() {
         modeloTabla.setRowCount(0);
         List<Busqueda> busquedas = controlador.obtenerTodasLasBusquedas();
@@ -111,7 +108,6 @@ public class PanelBusquedas extends JPanel {
             modeloTabla.addRow(fila);
         }
         
-        // Actualizar estadísticas
         int[] stats = controlador.obtenerEstadisticas();
         lblEstadisticas.setText(String.format(
             "Total de búsquedas: %d  |  Total de documentos encontrados: %,d",
@@ -119,6 +115,8 @@ public class PanelBusquedas extends JPanel {
         ));
     }
     
+    // Cuando el usuario selecciona una fila, muestra la información completa
+    // de la búsqueda seleccionada en el área de detalles
     private void mostrarDetallesBusqueda() {
         int filaSeleccionada = tablaBusquedas.getSelectedRow();
         

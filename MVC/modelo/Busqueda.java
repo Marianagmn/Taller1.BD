@@ -2,23 +2,22 @@ package modelo;
 
 import java.sql.Timestamp;
 
-/**
- * MODELO: Clase Busqueda
- * Representa una búsqueda realizada en bases de datos científicas
- */
+// Esta clase representa una búsqueda realizada por un estudiante en una base de datos.
+// Guarda información como quién hizo la búsqueda, qué buscó, cuántos documentos encontró, etc.
 public class Busqueda {
-    
-    private int id;
-    private String nombreEstudiante;
-    private String baseDatos;
-    private String cadenaBusqueda;
-    private int cantidadDocumentos;
-    private Timestamp fechaBusqueda;
-    
-    // Constructores
+    // Propiedades (atributos) de la búsqueda
+    private int id;                    // Identificador único de la búsqueda
+    private String nombreEstudiante;   // Nombre del estudiante que realizó la búsqueda
+    private String baseDatos;          // Nombre de la base de datos donde se buscó
+    private String cadenaBusqueda;     // Término que se buscó
+    private int cantidadDocumentos;    // Cantidad de documentos encontrados
+    private Timestamp fechaBusqueda;   // Fecha y hora en que se realizó la búsqueda
+
+    // Constructor vacío - para una búsqueda sin datos iniciales
     public Busqueda() {
     }
-    
+
+    // Constructor con parámetros - para datos completos de la búsqueda
     public Busqueda(int id, String nombreEstudiante, String baseDatos, 
                    String cadenaBusqueda, int cantidadDocumentos) {
         this.id = id;
@@ -27,14 +26,14 @@ public class Busqueda {
         this.cadenaBusqueda = cadenaBusqueda;
         this.cantidadDocumentos = cantidadDocumentos;
     }
-    
-    // Getters y Setters
+
+    // GETTERS Y SETTERS
     public int getId() {
-        return id;
+        return id;  // Devuelve el identificador de la búsqueda
     }
     
     public void setId(int id) {
-        this.id = id;
+        this.id = id;  // Asigna un identificador a la búsqueda
     }
     
     public String getNombreEstudiante() {
@@ -77,9 +76,10 @@ public class Busqueda {
         this.fechaBusqueda = fechaBusqueda;
     }
     
+    // Método toString - convierte la búsqueda a texto para mostrarla en la interfaz
     @Override
     public String toString() {
         return "Búsqueda #" + id + " - " + nombreEstudiante + 
-               " (" + cantidadDocumentos + " documentos)";
+               " (" + cantidadDocumentos + " documentos)";  // Muestra resumen de la búsqueda
     }
 }

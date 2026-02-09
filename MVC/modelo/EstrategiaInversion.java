@@ -2,28 +2,27 @@ package modelo;
 
 import java.sql.Timestamp;
 
-/**
- * MODELO: Clase EstrategiaInversion
- * Representa una estrategia de inversión basada en IA/Fintech
- * Esta es la entidad principal para el CRUD
- */
+// Esta clase representa una estrategia de inversión
+// Contiene información sobre el tipo de estrategia, nivel de riesgo, retorno esperado, etc.
 public class EstrategiaInversion {
     
-    private int id;
-    private String nombre;
-    private String descripcion;
-    private String tipoEstrategia;
-    private String nivelRiesgo; // "Bajo", "Medio", "Alto"
-    private String tecnologiasUtilizadas;
-    private double retornoEsperado;
-    private Integer articuloRelacionadoId; // Puede ser null
-    private Timestamp fechaCreacion;
-    private Timestamp fechaActualizacion;
-    
-    // Constructores
+    // Propiedades (atributos) de la estrategia de inversión
+    private int id;                        // Identificador único de la estrategia
+    private String nombre;                 // Nombre de la estrategia
+    private String descripcion;            // Descripción detallada de la estrategia
+    private String tipoEstrategia;         // Tipo de estrategia (ej: Conservadora, Agresiva)
+    private String nivelRiesgo;            // Nivel de riesgo (ej: Bajo, Medio, Alto)
+    private String tecnologiasUtilizadas;  // Tecnologías o herramientas utilizadas
+    private double retornoEsperado;        // Porcentaje de retorno esperado
+    private Integer articuloRelacionadoId; // ID del artículo asociado a la estrategia
+    private Timestamp fechaCreacion;       // Fecha y hora en que se creó
+    private Timestamp fechaActualizacion;  // Fecha y hora de la última actualización
+   
+    // Constructor vacío - para una estrategia sin datos iniciales
     public EstrategiaInversion() {
     }
     
+    // Constructor con parámetros - para cuando tenemos los datos principales de la estrategia
     public EstrategiaInversion(String nombre, String descripcion, String tipoEstrategia, 
                               String nivelRiesgo, String tecnologiasUtilizadas, 
                               double retornoEsperado, Integer articuloRelacionadoId) {
@@ -35,14 +34,15 @@ public class EstrategiaInversion {
         this.retornoEsperado = retornoEsperado;
         this.articuloRelacionadoId = articuloRelacionadoId;
     }
+
+    // GETTERS Y SETTERS
     
-    // Getters y Setters
     public int getId() {
-        return id;
+        return id;  // Devuelve el identificador de la estrategia
     }
     
     public void setId(int id) {
-        this.id = id;
+        this.id = id;  // Asigna un identificador a la estrategia
     }
     
     public String getNombre() {
@@ -117,8 +117,9 @@ public class EstrategiaInversion {
         this.fechaActualizacion = fechaActualizacion;
     }
     
+    // Método toString - convierte la estrategia a texto para mostrarla en la interfaz
     @Override
     public String toString() {
-        return nombre + " - " + tipoEstrategia + " (Riesgo: " + nivelRiesgo + ")";
+        return nombre + " - " + tipoEstrategia + " (Riesgo: " + nivelRiesgo + ")";  // Muestra nombre, tipo y riesgo
     }
 }

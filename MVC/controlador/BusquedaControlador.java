@@ -1,21 +1,17 @@
 package controlador;
 
-import modelo.Busqueda;
-import modelo.ConexionDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Busqueda;
+import modelo.ConexionDB;
 
-/**
- * CONTROLADOR: BusquedaControlador
- * Maneja la lógica de negocio para las búsquedas científicas
- */
+// Esta clase controla todas las operaciones con búsquedas en la base de datos
+// Permite obtener búsquedas y calcular estadísticas de ellas
 public class BusquedaControlador {
     
-    /**
-     * Obtiene todas las búsquedas de la base de datos
-     * @return Lista de búsquedas
-     */
+
+    // Método para obtener todas las búsquedas almacenadas en la base de datos
     public List<Busqueda> obtenerTodasLasBusquedas() {
         List<Busqueda> busquedas = new ArrayList<>();
         String sql = "SELECT * FROM busquedas ORDER BY id";
@@ -24,6 +20,7 @@ public class BusquedaControlador {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             
+            // Recorremos los resultados y creamos objetos Busqueda con los datos obtenidos
             while (rs.next()) {
                 Busqueda busqueda = new Busqueda();
                 busqueda.setId(rs.getInt("id"));
@@ -44,11 +41,7 @@ public class BusquedaControlador {
         return busquedas;
     }
     
-    /**
-     * Obtiene una búsqueda por su ID
-     * @param id ID de la búsqueda
-     * @return Objeto Busqueda o null si no existe
-     */
+    // Método para obtener una búsqueda específica por su identificador (ID)
     public Busqueda obtenerBusquedaPorId(int id) {
         String sql = "SELECT * FROM busquedas WHERE id = ?";
         Busqueda busqueda = null;
@@ -56,9 +49,11 @@ public class BusquedaControlador {
         try (Connection conn = ConexionDB.getConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
+            // Buscamos la búsqueda con el ID especificado
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             
+            // Si la búsqueda existe, creamos un objeto con sus datos
             if (rs.next()) {
                 busqueda = new Busqueda();
                 busqueda.setId(rs.getInt("id"));
@@ -76,10 +71,9 @@ public class BusquedaControlador {
         return busqueda;
     }
     
-    /**
-     * Obtiene estadísticas generales de las búsquedas
-     * @return Array con [totalBusquedas, totalDocumentos]
-     */
+ 
+    // Método para obtener estadísticas de las búsquedas
+    // Retorna un array con: [0] = total de búsquedas, [1] = suma total de documentos encontrados
     public int[] obtenerEstadisticas() {
         String sql = "SELECT COUNT(*) as total, SUM(cantidad_documentos) as suma FROM busquedas";
         int[] stats = new int[2];
@@ -88,9 +82,10 @@ public class BusquedaControlador {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             
+            // Extraemos los datos de estadísticas de la base de datos
             if (rs.next()) {
-                stats[0] = rs.getInt("total");
-                stats[1] = rs.getInt("suma");
+                stats[0] = rs.getInt("total");     // Total de búsquedas realizadas
+                stats[1] = rs.getInt("suma");      // Suma de documentos encontrados
             }
             
         } catch (SQLException e) {

@@ -9,10 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Articulo;
 import modelo.EstrategiaInversion;
 
-/**
- * VISTA: PanelEstrategias
- * Implementa interfaz completa CRUD para Estrategias de Inversión
- */
+
+// Panel para gestionar (CRUD) las estrategias de inversión
+// Permite crear, ver, editar y eliminar estrategias usando `EstrategiaControlador`
 public class PanelEstrategias extends JPanel {
     
     private EstrategiaControlador controlador;
@@ -21,6 +20,7 @@ public class PanelEstrategias extends JPanel {
     private DefaultTableModel modeloTabla;
     private JButton btnCrear, btnEditar, btnEliminar, btnVer;
     
+    // Constructor: prepara controladores, componentes y carga las estrategias
     public PanelEstrategias() {
         controlador = new EstrategiaControlador();
         articuloControlador = new ArticuloControlador();
@@ -28,11 +28,11 @@ public class PanelEstrategias extends JPanel {
         cargarEstrategias();
     }
     
+    // Inicializa la tabla, botones y layout del panel de estrategias
     private void inicializarComponentes() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        // Panel superior con título
         JPanel panelTitulo = new JPanel();
         JLabel lblTitulo = new JLabel("Gestión de Estrategias de Inversión (CRUD)");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
@@ -40,7 +40,6 @@ public class PanelEstrategias extends JPanel {
         panelTitulo.add(lblTitulo);
         add(panelTitulo, BorderLayout.NORTH);
         
-        // Tabla de estrategias
         String[] columnas = {"ID", "Nombre", "Tipo", "Riesgo", "Retorno (%)"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
@@ -56,7 +55,6 @@ public class PanelEstrategias extends JPanel {
         tablaEstrategias.getTableHeader().setBackground(new Color(231, 76, 60));
         tablaEstrategias.getTableHeader().setForeground(Color.WHITE);
         
-        // Ajustar anchos
         tablaEstrategias.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaEstrategias.getColumnModel().getColumn(1).setPreferredWidth(300);
         tablaEstrategias.getColumnModel().getColumn(2).setPreferredWidth(150);
@@ -66,8 +64,7 @@ public class PanelEstrategias extends JPanel {
         JScrollPane scrollTabla = new JScrollPane(tablaEstrategias);
         scrollTabla.setBorder(BorderFactory.createTitledBorder("Estrategias Registradas"));
         add(scrollTabla, BorderLayout.CENTER);
-        
-        // Panel de botones (CRUD)
+
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         panelBotones.setBackground(new Color(236, 240, 241));
         
@@ -93,6 +90,7 @@ public class PanelEstrategias extends JPanel {
         add(panelBotones, BorderLayout.SOUTH);
     }
     
+    // Crea un botón con estilo uniforme para este panel (color, tamaño, fuente)
     private JButton crearBoton(String texto, Color color) {
         JButton boton = new JButton(texto);
         boton.setFont(new Font("Arial", Font.BOLD, 12));
@@ -104,6 +102,7 @@ public class PanelEstrategias extends JPanel {
         return boton;
     }
     
+    // Solicita al controlador la lista de estrategias y la muestra en la tabla
     private void cargarEstrategias() {
         modeloTabla.setRowCount(0);
         List<EstrategiaInversion> estrategias = controlador.obtenerTodasLasEstrategias();
@@ -120,7 +119,7 @@ public class PanelEstrategias extends JPanel {
         }
     }
     
-    // CREATE
+    // Muestra un diálogo para crear una nueva estrategia y la guarda si es válido
     private void mostrarDialogoCrear() {
         JDialog dialogo = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), 
                                      "Crear Nueva Estrategia", true);
@@ -161,7 +160,7 @@ public class PanelEstrategias extends JPanel {
         dialogo.setVisible(true);
     }
     
-    // READ (Ver detalles)
+    // Muestra los detalles completos de la estrategia seleccionada en un diálogo
     private void verDetallesEstrategia() {
         int fila = tablaEstrategias.getSelectedRow();
         if (fila < 0) {
@@ -218,7 +217,7 @@ public class PanelEstrategias extends JPanel {
         }
     }
     
-    // UPDATE
+    // Muestra un diálogo para editar la estrategia seleccionada
     private void mostrarDialogoEditar() {
         int fila = tablaEstrategias.getSelectedRow();
         if (fila < 0) {
@@ -274,7 +273,7 @@ public class PanelEstrategias extends JPanel {
         dialogo.setVisible(true);
     }
     
-    // DELETE
+    // Elimina la estrategia seleccionada después de pedir confirmación al usuario
     private void eliminarEstrategia() {
         int fila = tablaEstrategias.getSelectedRow();
         if (fila < 0) {
@@ -310,6 +309,8 @@ public class PanelEstrategias extends JPanel {
         }
     }
     
+    // Crea el formulario (panel) usado para crear/editar una estrategia
+    // Si `estrategia` es null se prepara vacío, si no, se llena con sus valores
     private JPanel crearPanelFormulario(EstrategiaInversion estrategia) {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -331,7 +332,6 @@ public class PanelEstrategias extends JPanel {
         
         JTextField txtRetorno = new JTextField(30);
         
-        // ComboBox de artículos
         JComboBox<String> cmbArticulo = new JComboBox<>();
         cmbArticulo.addItem("Sin artículo relacionado");
         List<Articulo> articulos = articuloControlador.obtenerTodosLosArticulos();
@@ -339,7 +339,6 @@ public class PanelEstrategias extends JPanel {
             cmbArticulo.addItem(art.getId() + " - " + art.getTitulo());
         }
         
-        // Si es edición, llenar datos
         if (estrategia != null) {
             txtNombre.setText(estrategia.getNombre());
             txtDescripcion.setText(estrategia.getDescripcion());
@@ -359,7 +358,6 @@ public class PanelEstrategias extends JPanel {
             }
         }
         
-        // Agregar componentes
         int row = 0;
         agregarCampo(panel, gbc, row++, "Nombre:", txtNombre);
         agregarCampo(panel, gbc, row++, "Descripción:", new JScrollPane(txtDescripcion));
@@ -368,8 +366,7 @@ public class PanelEstrategias extends JPanel {
         agregarCampo(panel, gbc, row++, "Tecnologías:", new JScrollPane(txtTecnologias));
         agregarCampo(panel, gbc, row++, "Retorno Esperado (%):", txtRetorno);
         agregarCampo(panel, gbc, row++, "Artículo Relacionado:", cmbArticulo);
-        
-        // Guardar componentes en el panel para recuperarlos
+
         panel.putClientProperty("txtNombre", txtNombre);
         panel.putClientProperty("txtDescripcion", txtDescripcion);
         panel.putClientProperty("txtTipo", txtTipo);
@@ -381,6 +378,7 @@ public class PanelEstrategias extends JPanel {
         return panel;
     }
     
+    // Método auxiliar para añadir una fila de etiqueta + campo al formulario
     private void agregarCampo(JPanel panel, GridBagConstraints gbc, int row, 
                              String label, JComponent campo) {
         gbc.gridx = 0;
@@ -396,6 +394,8 @@ public class PanelEstrategias extends JPanel {
         panel.add(campo, gbc);
     }
     
+    // Lee los valores del formulario, valida y devuelve un objeto EstrategiaInversion
+    // Retorna null si hay errores de validación (por ejemplo, campos vacíos o número inválido)
     private EstrategiaInversion obtenerDatosFormulario(JPanel panel) {
         try {
             JTextField txtNombre = (JTextField) panel.getClientProperty("txtNombre");
