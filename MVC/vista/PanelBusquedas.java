@@ -54,7 +54,8 @@ public class PanelBusquedas extends JPanel {
         tablaBusquedas.setRowHeight(25);
         tablaBusquedas.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
         tablaBusquedas.getTableHeader().setBackground(new Color(41, 128, 185));
-        tablaBusquedas.getTableHeader().setForeground(Color.WHITE);
+        tablaBusquedas.getTableHeader().setForeground(Color.BLACK);
+        tablaBusquedas.getTableHeader().setReorderingAllowed(false);
         
         // Listener para mostrar detalles
         tablaBusquedas.getSelectionModel().addListSelectionListener(e -> {

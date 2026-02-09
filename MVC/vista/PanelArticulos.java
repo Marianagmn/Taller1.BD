@@ -71,7 +71,8 @@ public class PanelArticulos extends JPanel {
         tablaArticulos.setRowHeight(30);
         tablaArticulos.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
         tablaArticulos.getTableHeader().setBackground(new Color(39, 174, 96));
-        tablaArticulos.getTableHeader().setForeground(Color.WHITE);
+        tablaArticulos.getTableHeader().setForeground(Color.BLACK);
+        tablaArticulos.getTableHeader().setReorderingAllowed(false);
         
         // Ajustar anchos de columnas
         tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(40);

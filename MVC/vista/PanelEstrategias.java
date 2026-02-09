@@ -54,7 +54,8 @@ public class PanelEstrategias extends JPanel {
         tablaEstrategias.setRowHeight(30);
         tablaEstrategias.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
         tablaEstrategias.getTableHeader().setBackground(new Color(231, 76, 60));
-        tablaEstrategias.getTableHeader().setForeground(Color.WHITE);
+        tablaEstrategias.getTableHeader().setForeground(Color.BLACK);
+        tablaEstrategias.getTableHeader().setReorderingAllowed(false);
         
         // Ajustar anchos
         tablaEstrategias.getColumnModel().getColumn(0).setPreferredWidth(40);
